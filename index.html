@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Android Lab </title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+h2 { color: black; }
+pre { background: #f5f5f5; padding: 10px; border-radius: 5px; white-space: pre-wrap; }
+button { margin: 5px; padding: 8px 12px; background-color: white; color: black; border: none; border-radius: 4px; cursor: pointer; }
+.section { display: none; margin-top: 15px; }
+</style>
+</head>
+<body>
+
+<div>
+  <button onclick="showSection('main_xml')">activity_main.xml</button>
+  <button onclick="showSection('second_xml')">activity_second.xml</button>
+  <button onclick="showSection('main_java')">MainActivity.java</button>
+  <button onclick="showSection('second_java')">SecondActivity.java</button>
+  <button onclick="showSection('java_notes')">Java Notes</button>
+</div>
+
+<hr>
+
+<div id="main_xml" class="section">
+<h2>activity_main.xml</h2>
+<pre>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"&gt;
+
+```
+&lt;TextView android:text="Student Form" android:textSize="22sp" android:layout_width="wrap_content" android:layout_height="wrap_content" /&gt;
+&lt;EditText android:id="@+id/edtName" android:hint="Enter Name" android:layout_width="match_parent" android:layout_height="wrap_content" /&gt;
+&lt;Spinner android:id="@+id/spCourse" android:layout_width="match_parent" android:layout_height="wrap_content" /&gt;
+&lt;CheckBox android:id="@+id/chkJava" android:text="Java" android:layout_width="wrap_content" android:layout_height="wrap_content" /&gt;
+&lt;CheckBox android:id="@+id/chkPython" android:text="Python" android:layout_width="wrap_content" android:layout_height="wrap_content" /&gt;
+&lt;RadioGroup android:id="@+id/radioGroup" android:layout_width="wrap_content" android:layout_height="wrap_content"&gt;
+    &lt;RadioButton android:id="@+id/radioMale" android:text="Male" android:layout_width="wrap_content" android:layout_height="wrap_content" /&gt;
+    &lt;RadioButton android:id="@+id/radioFemale" android:text="Female" android:layout_width="wrap_content" android:layout_height="wrap_content" /&gt;
+&lt;/RadioGroup&gt;
+&lt;ToggleButton android:id="@+id/toggleBtn" android:textOn="ON" android:textOff="OFF" android:layout_width="wrap_content" android:layout_height="wrap_content" /&gt;
+&lt;Switch android:id="@+id/switch1" android:text="Enable" android:layout_width="wrap_content" android:layout_height="wrap_content" /&gt;
+&lt;ProgressBar android:id="@+id/progressBar" style="?android:attr/progressBarStyleHorizontal" android:max="100" android:layout_width="match_parent" android:layout_height="wrap_content" /&gt;
+&lt;Button android:id="@+id/btnSubmit" android:text="Submit" android:layout_width="match_parent" android:layout_height="wrap_content" /&gt;
+&lt;Button android:id="@+id/btnNext" android:text="Next Activity" android:layout_width="match_parent" android:layout_height="wrap_content" /&gt;
+&lt;TextView android:id="@+id/txtResult" android:textSize="18sp" android:layout_width="wrap_content" android:layout_height="wrap_content" /&gt;
+```
+
+</LinearLayout> </pre>
+
+</div>
+
+<div id="second_xml" class="section">
+<h2>activity_second.xml</h2>
+<pre>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"&gt;
+    &lt;TextView android:id="@+id/txtData" android:textSize="22sp" android:layout_width="wrap_content" android:layout_height="wrap_content" /&gt;
+&lt;/LinearLayout&gt;
+</pre>
+</div>
+
+<div id="main_java" class="section">
+<h2>MainActivity.java</h2>
+<pre>// Full Java code with all attribute usage, line by line
+package com.example.myapp;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.*;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+EditText edtName;
+Spinner spCourse;
+CheckBox chkJava, chkPython;
+RadioGroup radioGroup;
+ToggleButton toggleBtn;
+Switch switch1;
+ProgressBar progressBar;
+Button btnSubmit, btnNext;
+TextView txtResult;
+
+protected void onCreate(Bundle savedInstanceState){
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_main);
+
+edtName = findViewById(R.id.edtName);
+spCourse = findViewById(R.id.spCourse);
+chkJava = findViewById(R.id.chkJava);
+chkPython = findViewById(R.id.chkPython);
+radioGroup = findViewById(R.id.radioGroup);
+toggleBtn = findViewById(R.id.toggleBtn);
+switch1 = findViewById(R.id.switch1);
+progressBar = findViewById(R.id.progressBar);
+btnSubmit = findViewById(R.id.btnSubmit);
+btnNext = findViewById(R.id.btnNext);
+txtResult = findViewById(R.id.txtResult);
+
+String[] courses = {"CS","IT","Business"};
+ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, courses);
+spCourse.setAdapter(adapter);
+
+btnSubmit.setOnClickListener(v -> {
+String name = edtName.getText().toString();
+String course = spCourse.getSelectedItem().toString();
+String skills = "";
+if(chkJava.isChecked()) skills += "Java ";
+if(chkPython.isChecked()) skills += "Python ";
+int id = radioGroup.getCheckedRadioButtonId();
+RadioButton rb = findViewById(id);
+String gender = rb.getText().toString();
+String toggle = toggleBtn.isChecked() ? "ON" : "OFF";
+String sw = switch1.isChecked() ? "Enabled" : "Disabled";
+progressBar.setProgress(100);
+String result = "Name: " + name + "\nCourse: " + course + "\nGender: " + gender + "\nSkills: " + skills + "\nToggle: " + toggle + "\nSwitch: " + sw;
+txtResult.setText(result);
+Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+Intent i = new Intent(MainActivity.this, SecondActivity.class);
+i.putExtra("data", result);
+startActivity(i);
+});
+} </pre>
+
+</div>
+
+<div id="second_java" class="section">
+<h2>SecondActivity.java</h2>
+<pre>package com.example.myapp;
+import android.os.Bundle;
+import android.widget.*;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class SecondActivity extends AppCompatActivity {
+TextView txtData;
+protected void onCreate(Bundle savedInstanceState){
+super.onCreate(savedInstanceState);
+setContentView(R.layout.activity_second);
+txtData = findViewById(R.id.txtData);
+String data = getIntent().getStringExtra("data");
+txtData.setText(data);
+Toast.makeText(this, data, Toast.LENGTH_LONG).show();
+}
+} </pre>
+
+</div>
+
+<div id="java_notes" class="section">
+<h2>Notes</h2>
+<pre><b>// 1. Declare Variables</b>
+EditText edtName;
+Spinner spCourse;
+CheckBox chkJava, chkPython;
+RadioGroup radioGroup;
+ToggleButton toggleBtn;
+Switch switch1;
+ProgressBar progressBar;
+Button btnSubmit, btnNext;
+TextView txtResult, txtData;
+
+<b>// 2. Connect XML to Java (findViewById)</b>
+edtName = findViewById(R.id.edtName);
+spCourse = findViewById(R.id.spCourse);
+chkJava = findViewById(R.id.chkJava);
+chkPython = findViewById(R.id.chkPython);
+radioGroup = findViewById(R.id.radioGroup);
+toggleBtn = findViewById(R.id.toggleBtn);
+switch1 = findViewById(R.id.switch1);
+progressBar = findViewById(R.id.progressBar);
+btnSubmit = findViewById(R.id.btnSubmit);
+btnNext = findViewById(R.id.btnNext);
+txtResult = findViewById(R.id.txtResult);
+txtData = findViewById(R.id.txtData);
+
+<b>// 3. Spinner Setup</b>
+String[] courses = {"CS","IT","Business"};
+ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, courses);
+spCourse.setAdapter(adapter);
+
+<b>// 4. Button Click</b>
+btnSubmit.setOnClickListener(v -> {
+String name = edtName.getText().toString();
+String course = spCourse.getSelectedItem().toString();
+String skills = "";
+if(chkJava.isChecked()) skills += "Java ";
+if(chkPython.isChecked()) skills += "Python ";
+int id = radioGroup.getCheckedRadioButtonId();
+RadioButton rb = findViewById(id);
+String gender = rb.getText().toString();
+String toggle = toggleBtn.isChecked() ? "ON" : "OFF";
+String sw = switch1.isChecked() ? "Enabled" : "Disabled";
+progressBar.setProgress(100);
+String result = "Name: " + name + "\nCourse: " + course + "\nGender: " + gender + "\nSkills: " + skills + "\nToggle: " + toggle + "\nSwitch: " + sw;
+txtResult.setText(result);
+Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+Intent i = new Intent(MainActivity.this, SecondActivity.class);
+i.putExtra("data", result);
+startActivity(i);
+});
+
+<b>// 5. Receive Data in SecondActivity</b>
+String data = getIntent().getStringExtra("data");
+txtData.setText(data);
+Toast.makeText(this, data, Toast.LENGTH_LONG).show(); 
+
+<b>// 6. Get Spinner Value</b>
+String course = spCourse.getSelectedItem().toString(); 
+
+<b>// 7. CheckBox Value</b>
+String skills = ""; 
+if(chkJava.isChecked()) skills += "Java "; 
+if(chkPython.isChecked()) skills += "Python "; 
+
+<b>// 8. RadioButton Value </b>
+int id = radioGroup.getCheckedRadioButtonId(); 
+RadioButton rb = findViewById(id); 
+String gender = rb.getText().toString(); 
+
+<b>// 9. ToggleButton Value </b>
+String toggle = toggleBtn.isChecked() ? "ON" : "OFF"; 
+
+<b>// 10. Switch Value </b>
+String sw = switch1.isChecked() ? "Enabled" : "Disabled"; 
+
+<b>// 11. ProgressBar</b> 
+progressBar.setProgress(100); 
+
+<b>// 12. Create Result String</b> 
+String result = "Name: " + name + 
+"\nCourse: " + course + 
+"\nGender: " + gender + 
+"\nSkills: " + skills + 
+"\nToggle: " + toggle + 
+"\nSwitch: " + sw; 
+
+<b>// 13. Show in TextView</b> 
+txtResult.setText(result); 
+
+<b>// 14. Show Toast</b> 
+Toast.makeText(this, result, Toast.LENGTH_LONG).show(); 
+
+<b>// 15. Send Data to SecondActivity</b> 
+Intent i = new Intent(MainActivity.this, SecondActivity.class); 
+i.putExtra("data", result); 
+startActivity(i); }); 
+
+<b>// 16. Receive Data in SecondActivity</b> 
+String data = getIntent().getStringExtra("data"); 
+txtData.setText(data); 
+Toast.makeText(this, data, Toast.LENGTH_LONG).show();
+</pre>
+
+</div>
+
+<script>
+function showSection(id){
+ let sections = document.querySelectorAll('.section');
+ sections.forEach(s => s.style.display = 'none');
+ document.getElementById(id).style.display = 'block';
+}
+</script>
+
+</body>
+</html>
