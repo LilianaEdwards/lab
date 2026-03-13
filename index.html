@@ -270,6 +270,26 @@ seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
     public void onStopTrackingTouch(SeekBar seekBar) {}
 });
+<b>// 19.NotificationCompat.Builder builder =
+        new NotificationCompat.Builder(this, "channel1")
+        .setSmallIcon(R.drawable.ic_launcher)
+        .setContentTitle("Hello")
+        .setContentText("New Notification")
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+NotificationManagerCompat manager =
+        NotificationManagerCompat.from(this);
+
+manager.notify(1, builder.build());</b>
+<b>// 20.AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+builder.setTitle("Exit");
+builder.setMessage("Do you want to exit?");
+
+builder.setPositiveButton("Yes", (dialog, which) -> finish());
+builder.setNegativeButton("No", (dialog, which) -> dialog.cancel());
+
+AlertDialog alert = builder.create();
+alert.show();</b>
 </pre>
 
 </div>
@@ -284,4 +304,5 @@ function showSection(id){
 
 </body>
 </html>
+
 
