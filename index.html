@@ -254,6 +254,22 @@ startActivity(i); });
 String data = getIntent().getStringExtra("data"); 
 txtData.setText(data); 
 Toast.makeText(this, data, Toast.LENGTH_LONG).show();
+
+<b>// 17. Color</b>
+btn.setBackgroundColor(getResources().gerColor(R.color.blue));
+txt.setTextColor(getResources().gerColor(R.color.blue));
+
+<b>// 18.Seek bar</b>
+seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        txtValue.setTextSize(progress);
+    }
+
+    public void onStartTrackingTouch(SeekBar seekBar) {}
+
+    public void onStopTrackingTouch(SeekBar seekBar) {}
+});
 </pre>
 
 </div>
@@ -268,3 +284,4 @@ function showSection(id){
 
 </body>
 </html>
+
